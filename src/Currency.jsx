@@ -22,24 +22,33 @@ export default function Currency() {
   function convert() {
     const rate = infos[to];
     setOutput(input * rate);
+    console.log(setInfos);
   }
+
+  useEffect(() => {
+    setOptions(Object.keys(infos));
+    convert();
+  }, [infos]);
+
   if (options.length > 0) {
     return (
       <div className="Currency">
         <h1>Currency Exchange</h1>
         <div className="container">
-          <div className="left">
-            <h3>Amount</h3>
+          <div className="input-field">
+            <h3>Amount to convert:</h3>
             <input
               type="text"
               id="amount"
-              placeholder="Enter the amount"
+              placeholder="0.00"
               onChange={(e) => setInput(e.target.value)}
             />
           </div>
-          <div className="middle">
-            <h3>From</h3>
+
+          <div className="select-options">
+            <h4>From</h4>
             <ReactDropdown
+              className="dropdown"
               options={options}
               onChange={(e) => {
                 setFrom(e.value);
@@ -47,11 +56,9 @@ export default function Currency() {
               value={from.toLocaleUpperCase()}
               placeholder="From"
             />
-          </div>
-
-          <div className="right">
-            <h3>To</h3>
+            <h4>To</h4>
             <ReactDropdown
+              className="dropdown"
               options={options}
               onChange={(e) => {
                 setTo(e.value);
@@ -60,8 +67,7 @@ export default function Currency() {
               placeholder="To"
             />
           </div>
-        </div>
-        <div className="result">
+
           <button
             type="button"
             onClick={() => {
@@ -70,9 +76,9 @@ export default function Currency() {
           >
             Convert
           </button>
-          <h2>Converted Amount:</h2>
-          <p>{`${input} ${from} = ${output.toFixed(2)} ${to}`}</p>
         </div>
+        <h2>Converted Amount : {output.toFixed(2)}</h2>
+        {/* <p>{`${input} ${from} = ${output.toFixed(2)} ${to}`}</p> */}
       </div>
     );
   }
