@@ -14,69 +14,66 @@ export default function Currency() {
   useEffect(() => {
     fetch(
       `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${from}.json`
-    ).then((res) => {
-      setInfos(res.data[from]);
-    });
+    )
+      .then((res) => res.json())
+      .then((res) => setOptions([...Object.keys(res[from])]));
   }, [from]);
-
-  useEffect(() => {
-    setOptions(Object.keys(infos));
-    /* convert(); */
-  }, [infos]);
 
   function convert() {
     const rate = infos[to];
     setOutput(input * rate);
   }
+  if (options.length > 0) {
+    return (
+      <div className="Currency">
+        <h1>Currency Exchange</h1>
+        <div className="container">
+          <div className="left">
+            <h3>Amount</h3>
+            <input
+              type="text"
+              id="amount"
+              placeholder="Enter the amount"
+              onChange={(e) => setInput(e.target.value)}
+            />
+          </div>
+          <div className="middle">
+            <h3>From</h3>
+            <ReactDropdown
+              options={options}
+              onChange={(e) => {
+                setFrom(e.value);
+              }}
+              value={from.toLocaleUpperCase()}
+              placeholder="From"
+            />
+          </div>
 
-  return (
-    <div className="Currency">
-      <h1>Currency Exchange</h1>
-      <div className="container">
-        <div className="left">
-          <h3>Amount</h3>
-          <input
-            type="text"
-            placeholder="Enter the amount"
-            onChange={(e) => setInput(e.target.value)}
-          />
+          <div className="right">
+            <h3>To</h3>
+            <ReactDropdown
+              options={options}
+              onChange={(e) => {
+                setTo(e.value);
+              }}
+              value={to.toUpperCase()}
+              placeholder="To"
+            />
+          </div>
         </div>
-        <div className="middle">
-          <h3>From</h3>
-          <ReactDropdown
-            options={options}
-            onChange={(e) => {
-              setFrom(e.value);
+        <div className="result">
+          <button
+            type="button"
+            onClick={() => {
+              convert();
             }}
-            value={from}
-            placeholder="From"
-          />
-        </div>
-
-        <div className="right">
-          <h3>To</h3>
-          <ReactDropdown
-            options={options}
-            onChange={(e) => {
-              setTo(e.value);
-            }}
-            value={to}
-            placeholder="To"
-          />
+          >
+            Convert
+          </button>
+          <h2>Converted Amount:</h2>
+          <p>{`${input} ${from} = ${output.toFixed(2)} ${to}`}</p>
         </div>
       </div>
-      <div className="result">
-        <button
-          type="button"
-          onClick={() => {
-            convert();
-          }}
-        >
-          Convert
-        </button>
-        <h2>Converted Amount:</h2>
-        <p>{input + " " + from + " = " + output.toFixed(3) + " " + to}</p>
-      </div>
-    </div>
-  );
+    );
+  }
 }
