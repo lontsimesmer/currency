@@ -78,7 +78,6 @@ export default function Currency() {
           </button>
         </div>
         <h2>Converted Amount : {output.toFixed(2)}</h2>
-        {/* <p>{`${input} ${from} = ${output.toFixed(2)} ${to}`}</p> */}
       </div>
     );
   }

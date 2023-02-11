@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lora&display=swap");
 
 .Currency {
   align-items: center;
@@ -19,6 +20,7 @@ h1 {
   align-items: center;
   background:	#f5f5dc;
   border-radius: 20px;
+  font-family: 'Lora', serif;
   height: 65%;
   width: 50%;
 }
@@ -62,6 +64,7 @@ button {
   background: #deb887;
   cursor: pointer;
   display: flex;
+  font-family: 'Lora', serif;
   font-size: 16px;
   justify-content: center;
   margin: 50px auto;
