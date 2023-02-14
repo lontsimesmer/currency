@@ -1,6 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap"); */
 @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lora&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+}
 
 .Currency {
   align-items: center;
@@ -8,21 +13,48 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
+  justify-content: center;
   width: 100%;
 }
 
 h1 {
-  font-family: 'pacifico', cursive;
+  font-family: 'lobster', cursive;
   font-weight: 100;
 }
 
+h2 {
+  font-family: 'Lobster', cursive;
+  font-weight: 100;
+  margin: 30px auto;
+  text-align: center;
+}
+
 .container {
-  align-items: center;
+  display: grid;
+  font-family: 'Lora', serif;
+  gap: 100px;
+  grid-template-columns: auto auto auto;
+  padding-top: 50px;
+}
+
+.converter {
   background:	#f5f5dc;
   border-radius: 20px;
-  font-family: 'Lora', serif;
-  height: 65%;
-  width: 50%;
+  width: 120%;
+}
+
+/* .converter:hover {
+  background: #ddd;
+} */
+
+.deposit {
+  background:	#f5f5dc;
+  border-radius: 20px;
+  width: 130%;
+}
+
+.wallet {
+  
 }
 
 h3 {
@@ -30,16 +62,25 @@ h3 {
   width: 80%;
 }
 
-.input-field {
+.input1 {
   align-items: center;
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
+  margin: -40px auto;
+  margin-bottom: -30px;
+}
+
+.input2 {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: -40px auto;
 }
 
 #amount {
   border: 1px solid #ddd;
   border-radius: 5px;
+  font-family: 'Lora', serif;
   font-size: 16px;
   height: 40px;
   padding-left: 10px;
@@ -48,14 +89,27 @@ h3 {
 
 .dropdown {
   font-size: 15px;
-  width: 50%;
+  width: 30%;
+}
+
+.dropdowns {
+  font-size: 15px;
+  padding-top: 50px;
+  width: 30%;
+}
+
+.select-option {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  margin: 60px auto;
+  width: 80%;
 }
 
 .select-options {
   align-items: center;
   display: flex;
-  gap: 10px;
-  margin: 50px auto;
+  margin: 25px auto;
   width: 80%;
 }
 
@@ -69,10 +123,4 @@ button {
   justify-content: center;
   margin: 50px auto;
   padding: 10px 30px;
-}
-
-h2 {
-  font-family: 'Lobster', cursive;
-  font-weight: 100;
-  margin: 30px auto;
 }
