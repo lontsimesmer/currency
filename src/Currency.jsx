@@ -4,14 +4,19 @@ import "react-dropdown/style.css";
 import "./Currency.css";
 
 export default function Currency() {
-  const [infos, setInfos] = useState([]);
   const [input, setInput] = useState(0);
   const [from, setFrom] = useState("usd");
   const [to, setTo] = useState("eur");
   const [currency, setCurrency] = useState("usd");
+  const [total, setTotal] = useState(0);
+  const [wallet, setWallet] = useState({
+    usd: { amount: 100 },
+    eur: { amount: 500 },
+    xaf: { amount: 1000 },
+  });
+  const [rates, setRates] = useState();
   const [deposit, setDeposit] = useState("usd");
   const [options, setOptions] = useState([]);
-  const [output, setOutput] = useState(0);
 
   useEffect(() => {
     fetch(
@@ -21,19 +26,22 @@ export default function Currency() {
       .then((res) => setOptions([...Object.keys(res[from])]));
   }, [from]);
 
-  function convert() {
-    const rate = infos[to];
-    setOutput(input * rate);
-    console.log(setInfos);
-  }
-
-  function confirm() {}
-
   useEffect(() => {
-    setOptions(Object.keys(infos));
-    convert();
-    console.log(output);
-  }, [infos]);
+    fetch(
+      `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${currency}.json`
+    )
+      .then((res) => res.json())
+      .then((res) => setRates([res[currency]]))
+      .then(() => {
+        console.log(rates);
+        let tempTotal = 0;
+        Object.keys(wallet)?.forEach((el) => {
+          tempTotal += wallet[el].amount / rates.el;
+          console.log(wallet[el].amount, el, rates.el);
+        });
+        setTotal(tempTotal);
+      });
+  }, [wallet, currency]);
 
   if (options.length > 0) {
     return (
@@ -42,7 +50,7 @@ export default function Currency() {
         <div className="container">
           <div className="converter">
             <h2>Converter</h2>
-            <div className="input1">
+            <div className="input-field">
               <h3>Amount:</h3>
               <input
                 type="text"
@@ -76,7 +84,7 @@ export default function Currency() {
             <button
               type="button"
               onClick={() => {
-                convert();
+                /* convert(); */
               }}
             >
               Convert
@@ -85,7 +93,7 @@ export default function Currency() {
           </div>
           <div className="deposit">
             <h2>Banque</h2>
-            <div className="input2">
+            <div className="input-field">
               <h3>Amount:</h3>
               <input id="amount" type="text" />
             </div>
@@ -103,7 +111,7 @@ export default function Currency() {
             <button
               type="button"
               onClick={() => {
-                confirm();
+                /* confirm(); */
               }}
             >
               Confirm
@@ -111,8 +119,8 @@ export default function Currency() {
           </div>
           <div className="wallet">
             <h2>My Wallet</h2>
-            <div className="select-options">
-              <h3>Default currency</h3>
+            <div className="select">
+              <h3>Default currency:</h3>
               <ReactDropdown
                 className="dropdowns"
                 options={options}
@@ -123,11 +131,13 @@ export default function Currency() {
               />
             </div>
             <div className="currencies">
-              <p>USD:</p>
-              <p>EUR:</p>
-              <p>XAF:</p>
-              <h4>Total:</h4>
+              {Object.keys(wallet).map((el) => (
+                <p key={el}>
+                  {el.toUpperCase()}: {wallet[el].amount}
+                </p>
+              ))}
             </div>
+            <h4 name="total">Total: {total}</h4>
           </div>
         </div>
       </div>
