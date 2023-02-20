@@ -4,73 +4,76 @@ import "react-dropdown/style.css";
 import "./Currency.css";
 
 export default function Currency() {
+  // Initialzing the state
   const [input, setInput] = useState(0);
   const [from, setFrom] = useState("usd");
   const [to, setTo] = useState("eur");
-  const [currency, setCurrency] = useState("usd");
+  const [defaultCurrency, setDefaultCurrency] = useState("usd");
   const [total, setTotal] = useState(0);
   const [wallet, setWallet] = useState([
     { sign: "usd", amount: 100 },
     { sign: "eur", amount: 500 },
-    { sign: "xaf", amount: 1000 },
+    { sign: "xaf", amount: 10000 },
   ]);
   const [rates, setRates] = useState();
   const [deposit, setDeposit] = useState("usd");
   const [options, setOptions] = useState([]);
 
+  // Fetching data from the Api
   useEffect(() => {
     fetch(
-      `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${currency}.json`
+      `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${defaultCurrency}.json`
     )
       .then((res) => res.json())
       .then((res) => {
-        setRates(res.usd);
-        setOptions([...Object.keys(res[currency])]);
+        setRates(res[defaultCurrency]);
+        setOptions([...Object.keys(res[defaultCurrency])]);
       });
-  }, [currency]);
 
-  // useEffect(() => {
-  //   fetch(
-  //     `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${currency}.json`
-  //   )
-  //     .then((res) => res.json())
-  //     .then((res) => setRates([res[currency]]))
-  //     .then(() => {
-  //       let usdValue = 0;
-  //       let eurValue = 0;
-  //       let xafValue = 0;
-  //       let getTotal = 0;
-  //       Object.keys(wallet)?.forEach((el) => {
-  //         usdValue += wallet[el].amount * rates.el;
-  //         eurValue += wallet[el].amount * rates.el;
-  //         xafValue += wallet[el].amount * rates.el;
-  //         getTotal += wallet[el].amount;
-  //         /* console.log(wallet[el].amount, el, rates.el); */
-  //       });
-  //       setWallet(usdValue, eurValue, xafValue);
-  //       setTotal(getTotal);
-  //     });
-  // }, [wallet, currency]);
+    if (rates !== undefined) {
+      let tempTotal = 0;
 
+      wallet?.forEach(({ sign, amount }) => {
+        tempTotal += (amount / rates[sign]) * rates[defaultCurrency];
+        console.log(tempTotal);
+      });
+      const calculatedTotal =
+        (tempTotal / rates[defaultCurrency]) * rates[defaultCurrency];
+      setTotal(calculatedTotal);
+    }
+  }, [defaultCurrency]);
+
+  // Calling the convert function
   function handleConvert() {
     const rate = rates;
     const Results = (input / rate[from]) * rate[to];
+    /* console.log("give results", Results); */
     const holder = wallet;
-    const newWallet = holder.map((curr) => {
-      if (curr.sign === from) {
-        curr.amount -= input;
+    /* console.log(wallet); */
+
+    holder.map((el) => {
+      if (el.sign === from) {
+        el.amount -= input;
+      } else if (el.sign === to) {
+        el.amount += Results;
       }
-      if (curr.sign === to) {
-        return curr;
-      }
+      return el;
     });
 
-    newWallet[from].amount -= input;
-    newWallet[to].amount += Results;
-    setWallet(newWallet);
-  }
+    setWallet([...holder]);
 
-  // console.log("this wallet", wallet);
+    if (rates !== undefined) {
+      let tempTotal = 0;
+
+      wallet?.forEach(({ sign, amount }) => {
+        tempTotal += (amount / rates[sign]) * rates[defaultCurrency];
+        console.log(tempTotal);
+      });
+      const calculatedTotal =
+        (tempTotal / rates[defaultCurrency]) * rates[defaultCurrency];
+      setTotal(calculatedTotal);
+    }
+  }
 
   function handleConfirm() {}
 
@@ -84,6 +87,7 @@ export default function Currency() {
             onSubmit={(e) => {
               e.preventDefault();
               handleConvert();
+              e.target.elements.amount.value = null;
             }}
           >
             <h2>Converter</h2>
@@ -92,6 +96,7 @@ export default function Currency() {
               <input
                 id="amount"
                 type="number"
+                step="any"
                 onChange={(e) => setInput(+e.target.value)}
               />
             </div>
@@ -123,7 +128,7 @@ export default function Currency() {
           <form
             className="deposit"
             onSubmit={(e) => {
-              e.prevenDefault();
+              e.preventDefault();
               handleConfirm();
             }}
           >
@@ -133,6 +138,7 @@ export default function Currency() {
               <input
                 id="amount"
                 type="number"
+                step="any"
                 onChange={(e) => setInput(+e.target.value)}
               />
             </div>
@@ -163,20 +169,20 @@ export default function Currency() {
               <ReactDropdown
                 className="dropdowns"
                 options={options}
+                value={defaultCurrency.toUpperCase()}
                 onChange={(e) => {
-                  setCurrency(e.value);
+                  setDefaultCurrency(e.value);
                 }}
-                value={currency.toUpperCase()}
               />
             </div>
             <div className="currencies">
-              {wallet.map((el) => (
-                <p key={el}>
-                  {el.sign.toUpperCase()}: {el.amount}
+              {wallet.map((el, ind) => (
+                <p key={ind}>
+                  {el.sign.toUpperCase()}: {el.amount.toFixed(2)}
                 </p>
               ))}
             </div>
-            <h4 name="total">Total: {total}</h4>
+            <h4 name="total">Total: {total.toFixed(2)}</h4>
           </div>
         </div>
       </div>
