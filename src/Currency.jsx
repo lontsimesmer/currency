@@ -16,7 +16,7 @@ export default function Currency() {
     { sign: "xaf", amount: 10000 },
   ]);
   const [rates, setRates] = useState();
-  const [deposit, setDeposit] = useState("usd");
+  const [deposit, setDeposit] = useState("xaf");
   const [options, setOptions] = useState([]);
 
   // Fetching data from the Api
@@ -35,7 +35,7 @@ export default function Currency() {
 
       wallet?.forEach(({ sign, amount }) => {
         tempTotal += (amount / rates[sign]) * rates[defaultCurrency];
-        console.log(tempTotal);
+        /* console.log(tempTotal); */
       });
       const calculatedTotal =
         (tempTotal / rates[defaultCurrency]) * rates[defaultCurrency];
@@ -43,23 +43,22 @@ export default function Currency() {
     }
   }, [defaultCurrency]);
 
-  // Calling the convert function
+  // Calling the convert function and getting the total in default currency
   function handleConvert() {
     const rate = rates;
     const Results = (input / rate[from]) * rate[to];
-    /* console.log("give results", Results); */
     const holder = wallet;
-    /* console.log(wallet); */
 
     holder.map((el) => {
       if (el.sign === from) {
+        // eslint-disable-next-line
         el.amount -= input;
       } else if (el.sign === to) {
+        // eslint-disable-next-line
         el.amount += Results;
       }
       return el;
     });
-
     setWallet([...holder]);
 
     if (rates !== undefined) {
@@ -67,7 +66,6 @@ export default function Currency() {
 
       wallet?.forEach(({ sign, amount }) => {
         tempTotal += (amount / rates[sign]) * rates[defaultCurrency];
-        console.log(tempTotal);
       });
       const calculatedTotal =
         (tempTotal / rates[defaultCurrency]) * rates[defaultCurrency];
@@ -75,7 +73,28 @@ export default function Currency() {
     }
   }
 
-  function handleConfirm() {}
+  // Calling the currency deposit and getting the total in default currency
+  function handleConfirm() {
+    wallet.map((el) => {
+      if (el.sign === deposit) {
+        // eslint-disable-next-line
+        el.amount += input;
+      }
+      return el;
+    });
+    setWallet([...wallet]);
+
+    if (rates !== undefined) {
+      let tempTotal = 0;
+
+      wallet?.forEach(({ sign, amount }) => {
+        tempTotal += (amount / rates[sign]) * rates[defaultCurrency];
+      });
+      const calculatedTotal =
+        (tempTotal / rates[defaultCurrency]) * rates[defaultCurrency];
+      setTotal(calculatedTotal);
+    }
+  }
 
   if (options.length > 0) {
     return (
@@ -87,7 +106,7 @@ export default function Currency() {
             onSubmit={(e) => {
               e.preventDefault();
               handleConvert();
-              e.target.elements.amount.value = null;
+              /* e.target.elements.amount.value = null; */
             }}
           >
             <h2>Converter</h2>
@@ -153,14 +172,7 @@ export default function Currency() {
                 value={deposit.toUpperCase()}
               />
             </div>
-            <button
-              type="button"
-              onClick={() => {
-                /* confirm(); */
-              }}
-            >
-              Confirm
-            </button>
+            <button type="submit">Confirm</button>
           </form>
           <div className="wallet">
             <h2>My Wallet</h2>
@@ -176,8 +188,9 @@ export default function Currency() {
               />
             </div>
             <div className="currencies">
-              {wallet.map((el, ind) => (
-                <p key={ind}>
+              {wallet.map((el, index) => (
+                // eslint-disable-next-line
+                <p key={index}>
                   {el.sign.toUpperCase()}: {el.amount.toFixed(2)}
                 </p>
               ))}
