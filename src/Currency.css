@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Lora&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap");
 
 .Currency {
   align-items: center;
@@ -69,16 +69,6 @@ h3 {
   flex-direction: column;
   margin: -40px auto;
   margin-bottom: -30px;
-}
-
-#amount {
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-family: "Lora", serif;
-  font-size: 15px;
-  height: 40px;
-  padding-left: 10px;
-  width: 80%;
 }
 
 .dropdown {
