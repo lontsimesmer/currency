@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import ReactDropdown from "react-dropdown";
 import "react-dropdown/style.css";
 import "./Currency.css";
+import { Button, Input } from "./Components/Atoms";
 
 export default function Currency() {
   // Initialzing the state
@@ -112,8 +113,7 @@ export default function Currency() {
             <h2>Converter</h2>
             <div className="input-field">
               <h3>Amount:</h3>
-              <input
-                id="amount"
+              <Input
                 type="number"
                 step="any"
                 onChange={(e) => setInput(+e.target.value)}
@@ -142,7 +142,7 @@ export default function Currency() {
                 }}
               />
             </div>
-            <button type="submit">Convert</button>
+            <Button>Convert</Button>
           </form>
           <form
             className="deposit"
@@ -154,8 +154,7 @@ export default function Currency() {
             <h2>Banque</h2>
             <div className="input-field">
               <h3>Amount:</h3>
-              <input
-                id="amount"
+              <Input
                 type="number"
                 step="any"
                 onChange={(e) => setInput(+e.target.value)}
@@ -172,7 +171,7 @@ export default function Currency() {
                 value={deposit.toUpperCase()}
               />
             </div>
-            <button type="submit">Confirm</button>
+            <Button>Confirm</Button>
           </form>
           <div className="wallet">
             <h2>My Wallet</h2>

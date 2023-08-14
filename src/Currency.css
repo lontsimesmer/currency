@@ -1,11 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lora&display=swap");
 
-* {
-  margin: 0;
-  padding: 0;
-}
-
 .Currency {
   align-items: center;
   background: #f0ffff;
@@ -17,12 +12,12 @@
 }
 
 h1 {
-  font-family: 'lobster', cursive;
+  font-family: "lobster", cursive;
   font-weight: 100;
 }
 
 h2 {
-  font-family: 'Lobster', cursive;
+  font-family: "Lobster", cursive;
   font-weight: 100;
   margin: 30px auto;
   text-align: center;
@@ -31,7 +26,7 @@ h2 {
 .container {
   display: flex;
   flex-direction: row;
-  font-family: 'Lora', serif;
+  font-family: "Lora", serif;
   gap: 20px;
   justify-content: center;
   margin: 0 auto;
@@ -46,19 +41,19 @@ h2 {
 }
 
 .converter {
-  background:	#f5f5dc;
+  background: #f5f5dc;
   border-radius: 20px;
   width: 100%;
 }
 
 .deposit {
-  background:	#f5f5dc;
+  background: #f5f5dc;
   border-radius: 20px;
   width: 100%;
 }
 
 .wallet {
-  background:	#f5f5dc;
+  background: #f5f5dc;
   border-radius: 20px;
   width: 100%;
 }
@@ -79,7 +74,7 @@ h3 {
 #amount {
   border: 1px solid #ddd;
   border-radius: 5px;
-  font-family: 'Lora', serif;
+  font-family: "Lora", serif;
   font-size: 15px;
   height: 40px;
   padding-left: 10px;
@@ -119,18 +114,6 @@ h3 {
   margin: 15px auto;
   margin-top: -40px;
   width: 80%;
-}
-
-button {
-  border: 1px #ddd;
-  background: #deb887;
-  cursor: pointer;
-  display: flex;
-  font-family: 'Lora', serif;
-  font-size: 16px;
-  justify-content: center;
-  margin: 50px auto;
-  padding: 10px 30px;
 }
 
 .currencies {
