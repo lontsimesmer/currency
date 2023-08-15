@@ -1,0 +1,145 @@
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap");
+
+.Currency {
+  align-items: center;
+  background: #f0ffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+}
+
+h1 {
+  font-family: "lobster", cursive;
+  font-weight: 100;
+}
+
+h2 {
+  font-family: "Lobster", cursive;
+  font-weight: 400;
+  margin: 30px auto;
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  font-family: "Lora", serif;
+  gap: 20px;
+  justify-content: center;
+  margin: 0 auto;
+  padding-top: 50px;
+  width: 80%;
+}
+
+@media screen and (max-width: 1024px) {
+  .container {
+    width: 90%;
+  }
+}
+
+.converter {
+  background: #f5f5dc;
+  border-radius: 20px;
+  width: 100%;
+}
+
+.deposit {
+  background: #f5f5dc;
+  border-radius: 20px;
+  width: 100%;
+}
+
+.wallet {
+  background: #f5f5dc;
+  border-radius: 20px;
+  width: 100%;
+}
+
+h3 {
+  margin-top: 50px;
+  width: 80%;
+}
+
+.input-field {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: -40px auto;
+  margin-bottom: -30px;
+}
+
+.dropdown {
+  font-size: 15px;
+  width: 30%;
+}
+
+.dropdowns {
+  font-size: 15px;
+  padding-top: 50px;
+  width: 30%;
+}
+
+.select-option {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  margin: 50px auto;
+  width: 80%;
+}
+
+.select-options {
+  align-items: center;
+  display: flex;
+  margin: 15px auto;
+  padding-bottom: 5px;
+  width: 80%;
+}
+
+.select {
+  align-items: center;
+  display: flex;
+  margin: 15px auto;
+  margin-top: -40px;
+  width: 80%;
+}
+
+.currencies {
+  line-height: 2;
+  font-size: 20px;
+  margin: 0 auto;
+  padding-bottom: 40px;
+  width: 80%;
+}
+
+h4 {
+  font-size: 20px;
+  text-align: center;
+}
+
+@media screen and (max-width: 425px) {
+  .container {
+    display: block;
+    width: 80%;
+  }
+
+  .converter {
+    height: 350px;
+    padding-top: 1px;
+    margin-bottom: 20px;
+  }
+
+  .deposit {
+    height: 350px;
+    padding-top: 1px;
+    margin-bottom: 20px;
+  }
+
+  .wallet {
+    height: 350px;
+    padding-top: 1px;
+    margin-bottom: 20px;
+  }
+}
