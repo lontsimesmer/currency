@@ -122,5 +122,24 @@ h4 {
 @media screen and (max-width: 425px) {
   .container {
     display: block;
+    width: 80%;
+  }
+
+  .converter {
+    height: 350px;
+    padding-top: 1px;
+    margin-bottom: 20px;
+  }
+
+  .deposit {
+    height: 350px;
+    padding-top: 1px;
+    margin-bottom: 20px;
+  }
+
+  .wallet {
+    height: 350px;
+    padding-top: 1px;
+    margin-bottom: 20px;
   }
 }
